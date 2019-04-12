@@ -17,6 +17,13 @@ struct Human {
     home_planet: String,
 }
 
+#[derive(GraphQLObject)]
+#[graphql(description = "Doggo")]
+struct Dog {
+    name: String,
+    bark: String
+}
+
 #[derive(GraphQLInputObject)]
 #[graphql(description = "A humanoid creature in the Star Wars universe")]
 struct NewHuman {
@@ -34,6 +41,12 @@ graphql_object!(QueryRoot: () |&self| {
             name: "Luke".to_owned(),
             appears_in: vec![Episode::NewHope],
             home_planet: "Mars".to_owned(),
+        })
+    }
+    field dog(&executor, id: String) -> FieldResult<Dog> {
+        Ok(Dog{
+            name: "Doggo".to_owned(),
+            bark: "Yes".to_owned()
         })
     }
 });
