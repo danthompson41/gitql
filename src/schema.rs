@@ -43,7 +43,7 @@ graphql_object!(QueryRoot: () |&self| {
             home_planet: "Mars".to_owned(),
         })
     }
-    field dog(&executor, id: String) -> FieldResult<Dog> {
+    field dog(&executor) -> FieldResult<Dog> {
         Ok(Dog{
             name: "Doggo".to_owned(),
             bark: "Yes".to_owned()
