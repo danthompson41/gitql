@@ -8,6 +8,13 @@ enum Episode {
     Jedi,
 }
 
+
+#[derive(GraphQLObject)]
+#[graphql(description = "Git branches in the repo")]
+struct GitBranches{
+    name: String,
+}
+
 #[derive(GraphQLObject)]
 #[graphql(description = "A humanoid creature in the Star Wars universe")]
 struct Human {
@@ -35,6 +42,11 @@ struct NewHuman {
 pub struct QueryRoot;
 
 graphql_object!(QueryRoot: () |&self| {
+    field gitBranches(&executor) -> FieldResult<GitBranches> {
+        Ok(GitBranches{
+            name: "master".to_owned(),
+        })
+    }
     field human(&executor, id: String) -> FieldResult<Human> {
         Ok(Human{
             id: "1234".to_owned(),
